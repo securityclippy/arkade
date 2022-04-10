@@ -2177,5 +2177,30 @@ https://github.com/{{.Owner}}/{{.Repo}}/releases/download/{{.Version}}/{{.Name}}
 			BinaryTemplate: `{{.Name}}`,
 		})
 
+	//bug bounty tools
+
+	tools = append(tools,
+		Tool{
+			Owner:       "amass",
+			Repo:        "amass",
+			Name:        "amass",
+			NoExtension: true,
+			Version:     "3.19.1",
+			Description: "The OWASP Amass Project performs network mapping of attack surfaces and external asset discovery using open source information gathering and active reconnaissance techniques.",
+			URLTemplate: `{{$arch := "arm64"}}
+			{{- if eq .Arch "x86_64" -}}
+			{{$arch = "amd64"}}
+			{{- end -}}
+
+			{{$osStr := ""}}
+			{{- if eq .OS "linux" -}}
+			{{$osStr = "linux"}}
+			{{- else if eq .OS "darwin" -}}
+			{{$osStr = "darwin"}}
+			{{- end -}}
+			https://github.com/OWASP/Amass/releases/download/v{{.Version}}/amass_{{$osStr}}_{{$arch}}.zip`,
+			//https://github.com/kubernetes-sigs/kubebuilder/releases/download/v{{.Version}}/kubebuilder_{{$osStr}}_{{$arch}}`,
+		})
+
 	return tools
 }
